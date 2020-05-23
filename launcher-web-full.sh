@@ -15,7 +15,7 @@ COMMAND=$TSEARCH
 IS_SPECIAL_INPUT=1
 
 if [ -n "$1" ]; then
-    PROMPT=$1
+    PROMPT=$1   
     ENGINE=$1
     COMMAND="$COMMAND -e $ENGINE"
 fi
@@ -47,7 +47,8 @@ main(){
     done
     if [ -n "$TERM" ]; then
         echo $COMMAND -t "$TERM"
-        $COMMAND -t "$TERM"
+        echo $COMMAND -t "$TERM"
+        $COMMAND -t "$TERM"  
     fi
 }
 
