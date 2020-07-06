@@ -76,6 +76,7 @@ do
         h) usage;;
         l) list "${OPTARG}";;
     esac
+done
 
 if [ -n "$term" ]; then
     get_query(){
