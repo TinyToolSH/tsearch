@@ -54,5 +54,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * removed local script execution
 * Removed unecessary files
 
-[unreleased]: https://github.com/TinyToolSH/tsearch/compare/HEAD
+[unreleased]: https://github.com/TinyToolSH/tsearch/compare/0.1.0...HEAD
+[0.1.0]: https://github.com/TinyToolSH/tsearch/releases/tag/0.1.0
 
