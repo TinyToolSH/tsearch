@@ -35,7 +35,6 @@ usage(){
    echo -e "\033[1m$\033[0m tsearch -t \"free software\" -e duckduckgo -p firefox"
    echo -e "- all search parameters are located in /etc/tinytools/params.yaml"
    exit 0
-   echo -e "- all search parameters are located in /etc/tinytools/params.yaml"
 }
 
 url_encode(){
