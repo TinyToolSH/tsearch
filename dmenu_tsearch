@@ -14,7 +14,7 @@ COMMAND=tsearch
 IS_SPECIAL_INPUT=1
 
 if [ -n "$1" ]; then
-    PROMPT=$1   
+    PROMPT=$1
     ENGINE=$1
     COMMAND="$COMMAND -e $ENGINE"
 fi
@@ -22,8 +22,8 @@ fi
 main(){
     while [ $IS_SPECIAL_INPUT == 1 ]; do
         TERM=$(echo -e "$CLIP_OPTION\n$ENGINE_OPTION\n$PROGRAM_OPTION" | dmenu -p "$PROMPT:" -i)
-        case "$TERM" in 
-            "$ENGINE_OPTION") 
+        case "$TERM" in
+            "$ENGINE_OPTION")
                 SELECTED_ENGINE=$(echo -e "$ENGINE_CHOICES" | dmenu -p "Engine:" -i -l 10)
                 if [ -n "$SELECTED_ENGINE" ]; then
                     ENGINE="$SELECTED_ENGINE"
@@ -32,7 +32,7 @@ main(){
                 fi
                 IS_SPECIAL_INPUT=1
             ;;
-            "$PROGRAM_OPTION") 
+            "$PROGRAM_OPTION")
                 SELECTED_PROGRAM=$(echo -e "$PROGRAM_CHOICES" | dmenu -p "Program:" -i)
                 if [ -n "$SELECTED_PROGRAM" ]; then
                     PROGRAM="$SELECTED_PROGRAM"
@@ -46,7 +46,7 @@ main(){
         esac
     done
     if [ -n "$TERM" ]; then
-        $COMMAND -t "$TERM"  
+        $COMMAND -t "$TERM"
     fi
 }
 

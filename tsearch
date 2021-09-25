@@ -40,7 +40,7 @@ usage(){
 url_encode(){
     old_lc_collate=$LC_COLLATE
     LC_COLLATE=C
-    
+
     local length="${#1}"
     for (( i = 0; i < length; i++ )); do
         local c="${1:i:1}"
@@ -50,7 +50,7 @@ url_encode(){
             *) printf '%%%02X' "'$c" ;;
         esac
     done
-    
+
     LC_COLLATE=$old_lc_collate
 }
 
@@ -66,12 +66,12 @@ list()
     exit 0
 }
 
-while getopts p:e:t:hl: option 
+while getopts p:e:t:hl: option
 do
     case "${option}" in
         p) program=${OPTARG};;
         e) engine=${OPTARG};;
-        t) term=$(url_encode "${OPTARG}");; 
+        t) term=$(url_encode "${OPTARG}");;
         h) usage;;
         l) list "${OPTARG}";;
     esac
