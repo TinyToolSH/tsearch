@@ -21,7 +21,6 @@ search_params="tyaml /etc/tinytools/params.yaml"
 
 program=$($search_params -v default.program)
 engine=$($search_params -v default.engine)
-lang="en"
 
 usage(){
    echo -e "\033[1musage:\033[0m"
@@ -45,7 +44,7 @@ url_encode(){
     for (( i = 0; i < length; i++ )); do
         local c="${1:i:1}"
         case $c in
-            [a-zA-Z0-9.~_-]) printf "$c" ;;
+            [a-zA-Z0-9.~_-]) printf '%s' "$c" ;;
             ' ') printf "+" ;;
             *) printf '%%%02X' "'$c" ;;
         esac
@@ -74,6 +73,7 @@ do
         t) term=$(url_encode "${OPTARG}");;
         h) usage;;
         l) list "${OPTARG}";;
+        *) usage; exit 1 ;;
     esac
 done
 
@@ -84,8 +84,7 @@ if [ -n "$term" ]; then
     }
 
     command=$($search_params -v program."$program".command)
-    $command $(get_query $engine)
+    $command "$(get_query "$engine")"
 else
     echo "no term declared"
 fi
-

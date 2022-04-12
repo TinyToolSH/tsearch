@@ -1,10 +1,8 @@
 #!/bin/bash
 
-CONFIG=/etc/tinytools/params.yaml
-
 ENGINE_OPTION=">> CHANGE ENGINE"
 PROGRAM_OPTION=">> CHANGE PROGRAM"
-CLIP_OPTION=$(echo $(xclip -selection c -o))
+CLIP_OPTION="$(xclip -selection c -o | tr '\n' ' ')"
 
 ENGINE_CHOICES=$(tsearch -l engine)
 PROGRAM_CHOICES=$(tsearch -l program)
