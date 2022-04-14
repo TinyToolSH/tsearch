@@ -1,10 +1,8 @@
-#!/bin/bash
-
-CONFIG=/etc/tinytools/params.yaml
+#!/bin/sh
 
 ENGINE_OPTION=">> CHANGE ENGINE"
 PROGRAM_OPTION=">> CHANGE PROGRAM"
-CLIP_OPTION=$(echo $(xclip -selection c -o))
+CLIP_OPTION="$(xclip -selection c -o | tr '\n' ' ')"
 
 ENGINE_CHOICES=$(tsearch -l engine)
 PROGRAM_CHOICES=$(tsearch -l program)
@@ -20,11 +18,11 @@ if [ -n "$1" ]; then
 fi
 
 main(){
-    while [ $IS_SPECIAL_INPUT == 1 ]; do
-        TERM=$(echo -e "$CLIP_OPTION\n$ENGINE_OPTION\n$PROGRAM_OPTION" | dmenu -p "$PROMPT:" -i)
+    while [ $IS_SPECIAL_INPUT = 1 ]; do
+        TERM=$(printf '%s\n%s\n%s' "$CLIP_OPTION" "$ENGINE_OPTION" "$PROGRAM_OPTION" | dmenu -p "$PROMPT:" -i)
         case "$TERM" in
             "$ENGINE_OPTION")
-                SELECTED_ENGINE=$(echo -e "$ENGINE_CHOICES" | dmenu -p "Engine:" -i -l 10)
+                SELECTED_ENGINE=$(printf '%s' "$ENGINE_CHOICES" | dmenu -p "Engine:" -i -l 10)
                 if [ -n "$SELECTED_ENGINE" ]; then
                     ENGINE="$SELECTED_ENGINE"
                     PROMPT="$ENGINE"
@@ -33,7 +31,7 @@ main(){
                 IS_SPECIAL_INPUT=1
             ;;
             "$PROGRAM_OPTION")
-                SELECTED_PROGRAM=$(echo -e "$PROGRAM_CHOICES" | dmenu -p "Program:" -i)
+                SELECTED_PROGRAM=$(printf '%s' "$PROGRAM_CHOICES" | dmenu -p "Program:" -i)
                 if [ -n "$SELECTED_PROGRAM" ]; then
                     PROGRAM="$SELECTED_PROGRAM"
                     COMMAND="$COMMAND -p $PROGRAM"
