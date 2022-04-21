@@ -17,7 +17,8 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-search_params="tyaml /etc/tinytools/params.yaml"
+[ -z "$TSEARCH_FILE" ] && TSEARCH_FILE=/etc/tinytools/params.yaml
+search_params="tyaml $TSEARCH_FILE"
 
 program=$($search_params -v default.program)
 engine=$($search_params -v default.engine)
