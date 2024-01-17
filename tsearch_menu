@@ -1,0 +1,79 @@
+#!/bin/sh
+
+#This file is part of the TinyTools distribution (https://github.com/Calebe94/TinyTools).
+#Copyright (C) 2021 TinyTools
+#
+#This program is free software: you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation, either version 3 of the License, or
+#(at your option) any later version.
+#
+#This program is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+####################################################################################################
+# Variables
+####################################################################################################
+engine_action="[change engine]"
+program_action="[change program]"
+clip_action="$(xclip -o -selection clipboard | tr '\n' ' ')"
+home_actions="$(printf "%s\n$program_action\n$engine_action" "$clip_action")"
+
+output=""
+
+engines=$(tsearch -l engine)
+programs=$(tsearch -l program)
+prompt=$(tsearch -l default.engine)
+
+tsearch='tsearch'
+####################################################################################################
+# Functions
+####################################################################################################
+parse_arguments(){
+    while getopts dfr: option
+    do
+        case "${option}" in
+            d) menu='-d';;
+            f) menu='-f';;
+            r) menu='-r';;
+            *) echo "menu not available"; exit 1 ;;
+        esac
+    done
+}
+
+display_menu(){
+    printf '%s\n' "$1" | tmenu "$menu" -a "-p $2: -i"
+}
+
+main(){
+    while :
+    do
+        output=$(display_menu "$home_actions" "$prompt")
+        case "$output" in
+            "$engine_action")
+                engine=$(display_menu "$engines" "Engine")
+                [ -n "$engine" ] && prompt="$engine"
+            ;;
+            "$program_action") 
+                program=$(display_menu "$programs" "Program") 
+            ;;
+            *) return ;;
+        esac
+    done
+}
+####################################################################################################
+# Main
+####################################################################################################
+parse_arguments "$@"
+main
+if [ -n "$output" ]; then
+    [ -n "$engine" ] && tsearch="$tsearch -e $engine"
+    [ -n "$program" ] && tsearch="$tsearch -p $program"
+    $tsearch -t "$output"
+fi

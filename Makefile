@@ -8,7 +8,7 @@ all:
 install:
 	@echo "Installing tsearch..."
 	install -m 555 tsearch $(DESTDIR)/$(prefix)/bin/tsearch
-	install -m 555 dmenu_tsearch $(DESTDIR)/$(prefix)/bin/dmenu_tsearch
+	install -m 555 tsearch_menu $(DESTDIR)/$(prefix)/bin/tsearch_menu
 	install -D params.yaml -t /etc/tinytools/
 	@echo "done!"
 
@@ -20,7 +20,7 @@ distclean: clean
 uninstall:
 	@echo "Uninstall tsearch"
 	rm -f $(DESTDIR)/$(prefix)/bin/tsearch
-	rm -f $(DESTDIR)/$(prefix)/bin/dmenu_tsearch
+	rm -f $(DESTDIR)/$(prefix)/bin/tsearch_menu
 	rm -f /etc/tinytools/params.yaml
 	@echo "done!"
 
