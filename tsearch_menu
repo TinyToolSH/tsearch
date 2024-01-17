@@ -26,6 +26,7 @@ clip_action="$(xclip -o -selection clipboard | tr '\n' ' ')"
 home_actions="$(printf "%s\n$program_action\n$engine_action" "$clip_action")"
 
 output=""
+menu="-d"
 
 engines=$(tsearch -l engine)
 programs=$(tsearch -l program)
